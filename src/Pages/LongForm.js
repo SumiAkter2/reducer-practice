@@ -1,40 +1,9 @@
 import React, { useReducer } from "react";
+import { initialState, reducer } from "./State/FormReducer";
+import { actionType } from "./State/actionType";
 
 const LongForm = () => {
-  const initialState = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    gender: "",
-    education: "",
-    quantity: 0,
-    feedback: "",
-    term: false,
-  };
-  const reducer = (state, action) => {
-    // console.log(action);
-    switch (action.type) {
-      case "INPUT":
-        return {
-          ...state,
-          [action.payload.name]: action.payload.value,
-        };
-      case "TOGGLE":
-        return {
-          ...state,
-          term: !state.term,
-        };
-      case "INCREMENT":
-        return { ...state, quantity: state.quantity + action.payload };
-      case "DECREMENT":
-        return {
-          ...state,
-          quantity: state.quantity - action.payload,
-        };
-      default:
-        return state;
-    }
-  };
+  
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const submit = (e) => {
@@ -157,11 +126,11 @@ const LongForm = () => {
         <div>
           <label>Number of PCs</label>
           <div>
-            <button onClick={()=>dispatch({type:"DECREMENT",payload:1})}>-</button>
+            <button onClick={()=>dispatch({type:actionType.Decrement,payload:1})}>-</button>
             <div>
               <span>{state.quantity}</span>
             </div>
-            <button onClick={() => dispatch({ type: "INCREMENT", payload: 1 })}>
+            <button onClick={() => dispatch({ type: actionType.Increment, payload: 1 })}>
               +
             </button>
           </div>
